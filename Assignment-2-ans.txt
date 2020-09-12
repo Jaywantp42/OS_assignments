@@ -1,0 +1,223 @@
+Part1
+1----Write a script to create 10 directories, say a1,a2,...,a10
+i=1
+
+for((i; $i<=10; i++))
+do
+        mkdir a$i;
+done
+
+2----Write a menu based script to perform following string operations
+a) To find length of a string
+c) Copying string
+d) Concatenation of strings
+e) Compare two strings
+f) Reversing a string
+
+echo '3.Concate of string'
+        echo '4.compare to sring'
+        echo '5.Reverse string'
+read str1
+read option
+case $option in
+        1) echo ${#str1}
+                ;;
+
+        2) str2=$str1
+        echo $str2
+          ;;
+        3)str2="Bond"
+                echo $str1$str2
+                ;;
+        4) str2="Meghana"
+        if [ $str1 == $str2 ]
+        then
+          echo "Equal"
+        else
+            echo "Not equal"
+        fi
+            ;;
+        5) echo $str1 | rev
+                ;;
+
+*********************************************************************************************************
+Part 2
+1----Write a script To check given year is leap or not.
+# write a program to check given year is leap or not
+
+#!/bin/bash
+echo "Enter year:"
+read year
+a=`expr $year % 4`
+b=`expr $year % 100`
+c=`expr $year % 400`
+if [ $a -eq 0 -a $b != 0 -o $c -eq 0 ]; then
+        echo "$year is leap year"
+else
+        echo "$year is not a leap year"
+fi
+
+2----Write a script to print day of the week using
+	a) elif	b) case 
+
+# write a program to print day of week
+
+#!/bin/sh
+
+echo "enter a number"
+read n
+case $n in
+        1) echo "Sunday" ;;
+        2) echo "Monday" ;;
+        3) echo "Tuesday" ;;
+        4) echo "Wednesday" ;;
+        5) echo "Thursday" ;;
+        6) echo "Friday" ;;
+        7) echo "Saturday" ;;
+        *) echo "enter value between 1 to 7" ;;
+esac
+---------------------------------------------------------
+# day of a week using elif
+
+#!/bin/bash
+echo "Enter any day of week between 1 to 7 :"
+read day
+if [ $day -eq 1 ]; then
+        echo "Sunday"
+elif [ $day -eq 2 ]; then
+        echo "Monday"
+elif [ $day -eq 3 ]; then
+        echo "Tuesday"
+elif [ $day -eq 4 ]; then
+        echo "Wednesday"
+elif [ $day -eq 5 ]; then
+        echo "Thursday"
+elif [ $day -eq 6 ]; then
+        echo "Friday"
+elif [ $day -eq 7 ]; then
+        echo "Saturday"
+else
+        echo "Enter a valid number"
+fi
+
+3----a) Write a script to find biggest of three no.s
+   b) To find avg of 3 no.s, read no.s from keyboard
+
+a----
+#write a script to find biggest of three number
+
+#!/bin/sh
+echo "Enter three numbers"
+read num1
+read num2
+read num3
+if [ $num1 -gt $num2 -a $num1 -gt $num3 ]
+then
+        echo "$num1 is greater"
+elif [ $num2 -gt $num3 -a $num2 -gt $num1 ]
+then
+        echo "$num2 is greater"
+else
+        echo "$num3 is greater"
+fi
+---------------------------------------------------
+b----
+# find average of 3 numbers
+
+#!/bin/sh
+
+echo "Enter three numbers"
+read num1
+read num2
+read num3
+sum=` expr $num1 + $num2 + $num3`
+avg=`expr $sum / 3`
+echo "Average of 3 numbers: $avg"
+
+
+4----Write a program to check wahether given no.is even or odd
+
+#write a program to find whether given number is even or odd
+
+#!/sh/bin
+
+echo "Enter a number:"
+read num
+if [ $((num % 2)) -eq 0 ]
+then
+        echo "$num is even number"
+else
+        echo "$num is odd number"
+fi
+
+6----Write a program to find sum and product of two no.s using 
+	a) let 
+	b)expr
+	c)bc	
+
+# write a program to find sum and multiplication using different methods
+
+#!/bin/bash
+
+#using expr method
+
+echo "Enter two numbers : "
+read num1
+read num2
+sum=`expr $num1 + $num2`
+mul=`expr $num1 \* $num2`
+echo "Sum of two number is : $sum"
+echo "MUltiplicaton of two number is: $mul"
+
+7---- Write a script to generate Fibonacci series.
+
+# write a program to generate fibonnaci series
+
+#!/bin/bash
+
+#input
+echo "Enter a number : "
+read N
+#first number ot fibonnaci series
+a=0
+#second number of fibonnaci series
+b=1
+
+echo "Fibonnaci series is : "
+
+for (( i=0; i<N; i++ ))
+do
+        echo -n "$a"
+        fn=`expr $a + $b`
+        a=$b
+        b=$fn
+done
+
+8---- Write a shell script to reverse the single strings. 
+# write a program to reverse a string
+
+#!/bin/bash
+echo "Enter any string : "
+read str
+echo " $str " | rev
+
+9----Write a shell script to reverse the list of strings and reverse each string further in the list.
+
+
+10---Write a shell script to print the reverse of an input number.
+# write a program to reverse input number
+
+#!/bin/bash
+
+echo "Enter a number : "
+read n
+rev=0
+tmp=0
+
+while [ $n -gt 0 ]
+do
+tmp=`expr $n % 10`
+rev=`expr $rev \* 10 + $tmp`
+n=`expr $n / 10`
+done
+echo "reverse no is $rev"

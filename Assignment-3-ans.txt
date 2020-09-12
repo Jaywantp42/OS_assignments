@@ -1,0 +1,122 @@
+1---
+#include<iostream>
+#include<sys.types.h>
+#include<unistd.h>
+
+using namespace std;
+
+int main(){
+
+pid_t pid;
+pid=fork();
+
+if (pid==0){
+cout<<"this is child process:"<<getpid();
+
+}
+else if (pid >0)
+{
+cout<<"this is parent process:"<<getpid();
+}
+else
+{
+cout<<"process is not created";
+}
+}
+
+**************************************************************************************
+4--- FCFS
+
+#include<iostream>
+using namespace std;
+
+
+//function to find waiting time
+void findWaitingTime(int process[], int N, double bt[], double wt[], double at[])
+{
+    int service_time[N];
+    service_time[0] = 0;
+    wt[0]=0;
+
+    //calculate waiting time
+    for (int i=0; i<N; i++)
+    {
+        //add bt to previous process
+        service_time[i]= service_time[i-1] + bt[i-1];
+
+        //find waiting time for current process
+        wt[i] = service_time[i] - at[i];
+
+        if( wt[i]<0)
+        wt[i] = 0;
+    }
+}
+
+//function to calculate turn around time
+void findTurnArounTime(int process[], int N, double bt[], double wt[], double tat[])
+{
+    //calculate TAT
+    for(int i=0; i<N; i++)
+    {
+        tat[i] = bt[i] + wt [i];
+    }
+}
+
+//calculate avg wt and tat
+void findavgTime(int N, int process[], double bt[], double at[])
+{
+    double wt[N], tat[N];
+    //function to find waiting time
+    findWaitingTime(process,N,bt,wt,at);
+
+    //function to find turn around time
+    findTurnArounTime(process,N,bt,wt,tat);
+
+    //display all process
+    cout<<"Process"<< "Burst Time" << "Arrival Time" << "Waiting Time" << "Turn-Around Time";
+
+    double total_wt = 0, total_tat = 0;
+    for (int i = 0; i < N; i++)
+    {
+        total_wt = total_wt + wt[i];
+        total_tat = total_tat + tat[i];
+
+        cout<< " " << i+1 << "\t\t" << bt[i] << "\t\t" << at[i]<< "\t\t" << wt[i] << "\t\t" << tat[i] <<endl;
+
+    }
+
+    cout<< "Avg Waiting Time = " << total_wt / (double)N;
+    cout<< "\nAvg TurnAroundTime = " << total_tat / (double)N;
+    
+}
+
+int main()
+{
+    //process
+    int N;
+    cout<<"Enter Number of process"<<endl;
+    cin>>N;
+    int process[100];
+    for (int i=0; i<N; i++)
+    {
+        cin>>process[i];
+    }
+
+    //burst time
+    double bt[100];
+    for (int i=0; i<N; i++)
+    {
+        cin>>bt[i];
+    }
+
+    //arrival time
+    double at[100];
+    for (int i=0; i<N; i++)
+    {
+        cin>>at[i];
+    }
+
+    findavgTime(N,process,bt,at);
+
+    return 0;
+}
